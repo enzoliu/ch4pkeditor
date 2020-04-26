@@ -21,7 +21,7 @@ namespace ch4pkeditorM
             IntPtr lpBaseAddress,
             [Out] byte[] lpBuffer,
             int dwSize,
-            out int lpNumberOfBytesRead
+            out int lpNumberOfbytesRead
         );
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -30,7 +30,7 @@ namespace ch4pkeditorM
             IntPtr lpBaseAddress,
             [Out, MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
             int dwSize,
-            out int lpNumberOfBytesRead
+            out int lpNumberOfbytesRead
         );
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -39,7 +39,7 @@ namespace ch4pkeditorM
             IntPtr lpBaseAddress,
             IntPtr lpBuffer,
             int dwSize,
-            out int lpNumberOfBytesRead
+            out int lpNumberOfbytesRead
         );
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -48,7 +48,7 @@ namespace ch4pkeditorM
             IntPtr lpBaseAddress,
             byte[] lpBuffer,
             Int32 nSize,
-            out IntPtr lpNumberOfBytesWritten
+            out IntPtr lpNumberOfbytesWritten
         );
 
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -57,7 +57,7 @@ namespace ch4pkeditorM
             IntPtr lpBaseAddress,
             [MarshalAs(UnmanagedType.AsAny)] object lpBuffer,
             int dwSize,
-            out IntPtr lpNumberOfBytesWritten
+            out IntPtr lpNumberOfbytesWritten
         );
 
         [DllImport("User32.dll", EntryPoint = "FindWindow")]
@@ -163,7 +163,7 @@ namespace ch4pkeditorM
             return _initialized;
         }
 
-        public Byte[] readMemory(IntPtr position, int buffSize)
+        public byte[] readMemory(IntPtr position, int buffSize)
         {
             byte[] buff = new byte[buffSize];
             if (!_initialized)
@@ -193,8 +193,8 @@ namespace ch4pkeditorM
                 _errorMessage.Add("遊戲已關閉或無法讀取。");
                 return false;
             }
-            IntPtr refWriteBytes = IntPtr.Zero;
-            return WriteProcessMemory(_handler, position, data, data.Length, out refWriteBytes);
+            IntPtr refWritebytes = IntPtr.Zero;
+            return WriteProcessMemory(_handler, position, data, data.Length, out refWritebytes);
         }
     }
 }
