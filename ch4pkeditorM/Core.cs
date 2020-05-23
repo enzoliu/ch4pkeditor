@@ -132,7 +132,7 @@ namespace ch4pkeditorM
         public List<Process> FindProcess(string find)
         {
             _processName = find;
-            _processList = Process.GetProcesses().Where(x => x.ProcessName.Equals(find)).ToList();
+            _processList = Process.GetProcesses().Where(x => string.Equals(x.ProcessName, find, StringComparison.OrdinalIgnoreCase)).ToList();
             return _processList;
         }
         public void SetProcess(Process p)

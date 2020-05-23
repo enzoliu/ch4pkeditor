@@ -97,7 +97,7 @@ namespace ch4pkeditorM
             }
             else
             {
-                ShowMessage("請先開啟遊戲。");
+                ShowMessage("請先開啟遊戲。若已開啟遊戲仍偵測不到，請至論壇回報，並依照網站敘述提供資訊，謝謝。");
             }
         }
 
