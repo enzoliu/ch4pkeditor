@@ -58,7 +58,7 @@ namespace ch4pkeditorM
         
         private void loadMemoryData()
         {
-            ShowMessage("讀取資料中，請稍後。");
+            ShowMessage(Constant.MessagesDescription[Constant.Messages.FORM_LOADING_DATA]);
             setControls(false);
             Task t = new Task(() =>
             {
@@ -80,7 +80,7 @@ namespace ch4pkeditorM
                     BindListBox(wifeListBox, Center.shared.WifeList, wifeListBox_SelectedIndexChanged);
                     BindComboBox(wifeHusbandNameComboBox, Center.shared.HusbandList, wifeHusbandNameComboBox_SelectedIndexChanged);
                     setControls(true);
-                    ShowMessage("讀取完畢。");
+                    ShowMessage(Constant.MessagesDescription[Constant.Messages.FORM_LOAD_FINISH]);
                 }
             });
             t.Start();
@@ -97,7 +97,7 @@ namespace ch4pkeditorM
             }
             else
             {
-                ShowMessage("請先開啟遊戲。若已開啟遊戲仍偵測不到，請至論壇回報，並依照網站敘述提供資訊，謝謝。");
+                ShowMessage(Constant.MessagesDescription[Constant.Messages.FORM_PLEASE_OPEN_GAME_FIRST]);
             }
         }
 
@@ -210,7 +210,9 @@ namespace ch4pkeditorM
             byte[] generalData = general.ToByte();
             int offset = order * GeneralMemoryData.BlockDataLength;
             bool result = Core.shared.WriteMemory((IntPtr)(GeneralMemoryData.BlockStart + offset), generalData);
-            ShowMessage(result ? "已儲存，請返回遊戲刷新查看。" : "寫入錯誤。");
+            ShowMessage(
+                Constant.MessagesDescription[result ? Constant.Messages.FORM_SAVED_RETURN_GAME : Constant.Messages.FORM_SAVE_FAILED] 
+            );
         }
 
         private void generalCityListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -395,7 +397,9 @@ namespace ch4pkeditorM
             byte[] cityData = city.ToByte();
             int offset = order * CityMemoryData.BlockDataLength;
             bool result = Core.shared.WriteMemory((IntPtr)(CityMemoryData.BlockStart + offset), cityData);
-            ShowMessage(result ? "已儲存，請返回遊戲刷新查看。" : "寫入錯誤。");
+            ShowMessage(
+                Constant.MessagesDescription[result ? Constant.Messages.FORM_SAVED_RETURN_GAME : Constant.Messages.FORM_SAVE_FAILED]
+            );
         }
         private void cityNormalFullBtn_Click(object sender, EventArgs e)
         {
@@ -515,7 +519,9 @@ namespace ch4pkeditorM
             byte[] wifeData = wife.ToByte();
             int offset = order * WifeMemoryData.BlockDataLength;
             bool result = Core.shared.WriteMemory((IntPtr)(WifeMemoryData.BlockStart + offset), wifeData);
-            ShowMessage(result ? "已儲存，請返回遊戲刷新查看。" : "寫入錯誤。");
+            ShowMessage(
+                Constant.MessagesDescription[result ? Constant.Messages.FORM_SAVED_RETURN_GAME : Constant.Messages.FORM_SAVE_FAILED]
+            );
         }
 
 

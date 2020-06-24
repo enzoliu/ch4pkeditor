@@ -87,7 +87,7 @@ namespace ch4pkeditorM
         private string _processName = "";
         private bool _initialized = false;
         private const Int32 _FULL_ACCESS = 0x1F0FFF;
-        private List<String> _errorMessage = new List<string>();
+        private List<Constant.Errors> _errors = new List<Constant.Errors>();
         /*
          * Variable Access
          */
@@ -114,17 +114,18 @@ namespace ch4pkeditorM
         }
         public string[] getErrorMessage()
         {
-            string[] msgs = _errorMessage.ToArray();
-            _errorMessage.Clear();
+            string[] msgs = _errors.Select(x => Constant.ErrorsDescription[x]).ToArray();
+            _errors.Clear();
             return msgs;
         }
+
         private bool isProcessAlive()
         {
             if (_process.Id <= 0)
             {
                 return false;
             }
-            return Process.GetProcesses().Where(x => x.ProcessName.Equals(_processName)).Count() > 0;
+            return Process.GetProcesses().Where(x => string.Equals(x.ProcessName, _processName, StringComparison.OrdinalIgnoreCase)).Count() > 0;
         }
         /*
          * Methods
@@ -142,10 +143,10 @@ namespace ch4pkeditorM
         public bool Initialize()
         {
             _initialized = false;
-            _errorMessage.Clear();
+            _errors.Clear();
             if (_process.Id <= 0)
             {
-                _errorMessage.Add("錯誤的Process。");
+                _errors.Add(Constant.Errors.CORE_WRONG_PROCESS);
                 return false;
             }
             /* open process */
@@ -158,7 +159,7 @@ namespace ch4pkeditorM
             }
             else
             {
-                _errorMessage.Add("開啟Process過程中發生錯誤。");
+                _errors.Add(Constant.Errors.CORE_UNEXPECTED_ERROR_WHEN_OPEN);
             }
             return _initialized;
         }
@@ -168,12 +169,12 @@ namespace ch4pkeditorM
             byte[] buff = new byte[buffSize];
             if (!_initialized)
             {
-                _errorMessage.Add("尚未讀取遊戲資料!");
+                _errors.Add(Constant.Errors.CORE_DATA_NOT_READY);
                 return buff;
             }
             if (!isProcessAlive())
             {
-                _errorMessage.Add("遊戲已關閉或無法讀取。");
+                _errors.Add(Constant.Errors.CORE_PROCESS_NOT_AVAILABLE);
                 return buff;
             }
             int bytesreaded;
@@ -185,12 +186,12 @@ namespace ch4pkeditorM
         {
             if (!_initialized)
             {
-                _errorMessage.Add("尚未讀取遊戲資料!");
+                _errors.Add(Constant.Errors.CORE_DATA_NOT_READY);
                 return false;
             }
             if (!isProcessAlive())
             {
-                _errorMessage.Add("遊戲已關閉或無法讀取。");
+                _errors.Add(Constant.Errors.CORE_PROCESS_NOT_AVAILABLE);
                 return false;
             }
             IntPtr refWritebytes = IntPtr.Zero;

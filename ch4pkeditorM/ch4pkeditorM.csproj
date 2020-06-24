@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Data\ICH4PKObject.cs" />
     <Compile Include="Data\Center.cs" />
